@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Configuración de la página -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DApp Transfer</title>
+    <!-- Enlace al archivo de estilo externo -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Contenedor principal de la aplicación -->
+    <div class="container">
+        <!-- Imagen del logotipo de Western Union -->
+        <img src="western_union_logo.jpg" alt="Western Union Logo">
+
+        <!-- Formulario de transferencia con identificador 'transferForm' -->
+        <form id="transferForm">
+            <!-- Campo de entrada para la cuenta de destino -->
+            <label for="to">Cuenta Destino:</label>
+            <input type="text" id="to" name="to" required>
+            <br>
+            <!-- Campo de entrada para la cantidad en ETH -->
+            <label for="amount">Cantidad (ETH):</label>
+            <input type="text" id="amount" name="amount" required>
+            <br>
+            <!-- Botón de transferencia con evento 'onclick' vinculado a la función 'transfer()' -->
+            <button type="button" onclick="transfer()">Transferir</button>
+        </form>
+    </div>
+
+    <!-- Script JavaScript para manejar la transferencia -->
+    <script>
+        // Función asincrónica para manejar la transferencia
+        async function transfer() {
+            // Obtiene los valores de los campos 'to' y 'amount'
+            const to = document.getElementById('to').value;
+            const amount = document.getElementById('amount').value;
+
+            // Realiza una solicitud POST a la ruta '/transfer' del servidor
+            await fetch('/transfer', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                // Envia la información de destino y cantidad en formato JSON
+                body: JSON.stringify({ to, amount }),
+            });
+
+            // Muestra una alerta indicando que la transferencia fue exitosa
+            alert('Transferencia Exitosa');
+        }
+    </script>
+</body>
+
+</html>
